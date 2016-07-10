@@ -12,6 +12,7 @@
 
 defmodule WhereItsDue.DatabaseSeeder do
   alias WhereItsDue.Repo
+  alias WhereItsDue.Game
   use HTTPoison.Base
 
   @base_url "http://www.giantbomb.com/api/"
@@ -21,10 +22,20 @@ defmodule WhereItsDue.DatabaseSeeder do
     |> Poison.decode!
   end
 
+  # TODO: aliases, platforms, images, get all games
   def get_games do
     [key: key] = Application.get_env :where_its_due, WhereItsDue.GiantBomb
-    get!("#{@base_url}games/?format=json&limit=1&api_key=#{key}").body["results"]
-    |> IO.puts
+    get!("#{@base_url}games/?format=json&&api_key=#{key}").body["results"]
+    |> Enum.each(fn(struct) ->
+      Game.changeset(%Game{}, %{
+        name: struct["name"],
+        description: struct["description"],
+        giant_bomb_id: struct["id"],
+        image: [struct["image"]["screen_url"] | [struct["image"]["icon_url"]]],
+        deck: struct["deck"]
+      })
+      |> Repo.insert!
+    end)
   end
 
   def clear do
