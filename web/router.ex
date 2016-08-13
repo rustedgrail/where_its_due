@@ -26,6 +26,7 @@ defmodule WhereItsDue.Router do
     resources "/franchises", FranchiseController
   end
 
+  forward "/graphql", Absinthe.Plug, schema: WhereItsDue.Schema
 
   # Other scopes may use custom stacks.
   # scope "/api", WhereItsDue do

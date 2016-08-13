@@ -11,7 +11,7 @@ defmodule WhereItsDue.GameView do
       name: game.name,
       deck: game.deck,
       description: game.description,
-      giant_bomb_id: game.giant_bomb_id
+      giantBombId: game.giant_bomb_id
     }
   end
 end
