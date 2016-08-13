@@ -19,6 +19,14 @@ defmodule WhereItsDue.Router do
     get "/", PageController, :index
   end
 
+  scope "/api", WhereItsDue do
+    pipe_through :api
+
+    resources "/games", GameController
+    resources "/franchises", FranchiseController
+  end
+
+
   # Other scopes may use custom stacks.
   # scope "/api", WhereItsDue do
   #   pipe_through :api
