@@ -9,6 +9,7 @@ defmodule WhereItsDue.Game do
     field :aliases, {:array, :string}
     field :deck, :string
 
+    many_to_many :people, WhereItsDue.Person, join_through: "games_people"
     timestamps
   end
 

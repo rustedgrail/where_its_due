@@ -9,6 +9,7 @@ defmodule WhereItsDue.Person do
     field :giant_bomb_id, :integer
     field :name, :string
 
+    many_to_many :games, WhereItsDue.Game, join_through: "games_people"
     timestamps
   end
 

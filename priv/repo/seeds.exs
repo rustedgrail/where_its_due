@@ -15,6 +15,7 @@ defmodule WhereItsDue.DatabaseSeeder do
   alias WhereItsDue.Game
   alias WhereItsDue.Platform
   alias WhereItsDue.Company
+  require IEx
   use HTTPoison.Base
 
   @base_url "http://www.giantbomb.com/api/"
@@ -40,6 +41,15 @@ defmodule WhereItsDue.DatabaseSeeder do
       |> Repo.insert!
     end)
   end
+
+  def get_game(id) do
+    [key: key] = @giant_bomb
+    response = get!("#{@base_url}game/#{id}/?format=json&api_key=#{key}").body["results"]
+    case response do
+      [ ] -> ()
+      _ -> File.write!("game-#{id}.json", Poison.encode!(response))
+    end
+  end 
 
   def get_platforms(offset \\ 0) do
     [key: key] = @giant_bomb
@@ -94,4 +104,7 @@ defmodule WhereItsDue.DatabaseSeeder do
 end
 
 # WhereItsDue.DatabaseSeeder.get_games
-WhereItsDue.DatabaseSeeder.get_platforms
+# WhereItsDue.DatabaseSeeder.get_platforms
+#
+
+Enum.each(1..50, fn (id) -> WhereItsDue.DatabaseSeeder.get_game(id) end)
