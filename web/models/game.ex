@@ -9,7 +9,8 @@ defmodule WhereItsDue.Game do
     field :aliases, {:array, :string}
     field :deck, :string
 
-    many_to_many :people, WhereItsDue.Person, join_through: "games_people"
+    has_many :roles, WhereItsDue.Role
+    has_many :people, through: [:roles, :game]
     timestamps
   end
 
