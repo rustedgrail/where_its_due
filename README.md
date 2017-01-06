@@ -11,6 +11,8 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
+http://localhost:4000/graphql?query={graph(id:6,distance:1){name}}
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/

@@ -15,5 +15,11 @@ defmodule WhereItsDue.Schema do
     field :people, list_of(:person) do
       resolve &WhereItsDue.PersonResolver.all/2
     end
+
+    field :graph, list_of(:game) do
+      arg :id, non_null(:id)
+      arg :distance, non_null(:integer)
+      resolve &WhereItsDue.GameResolver.graph/2
+    end
   end
 end

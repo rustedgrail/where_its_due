@@ -19,7 +19,9 @@ defmodule WhereItsDue.Mixfile do
   def application do
     [mod: {WhereItsDue, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :httpoison]]
+                    :phoenix_ecto, :postgrex, :httpoison, :neo4j_sips],
+                  mod: {Neo4j.Sips.Application, []}
+                ]
   end
 
   # Specifies which paths to compile per environment.
@@ -30,16 +32,18 @@ defmodule WhereItsDue.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1.4"},
+    [{:phoenix, "~> 1.2"},
      {:postgrex, ">= 0.0.0"},
-     {:phoenix_ecto, "~> 2.0"},
+     {:phoenix_ecto, "~> 3.2"},
      {:phoenix_html, "~> 2.4"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
-     {:httpoison, "~> 0.9.0"},
+     {:httpoison, "~> 0.10"},
      {:absinthe_plug, "~> 1.1"},
-     {:poison, "~>2.1.0"},
-     {:cowboy, "~> 1.0"}]
+     {:poison, "~> 3.0", override: true},
+     {:cowboy, "~> 1.0"},
+     {:neo4j_sips, "0.2.15"}
+   ]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
